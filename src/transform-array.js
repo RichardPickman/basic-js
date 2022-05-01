@@ -41,6 +41,7 @@ function transform(arr) {
 
   copyArr.forEach(item => {
     if (flags.includes(item) || item === undefined) return
+    
     result.push(item)
   })
 

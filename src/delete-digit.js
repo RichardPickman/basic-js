@@ -20,7 +20,7 @@ function deleteDigit(digit) {
     }
 
     if (acc < number) return acc = parseInt(number)
-    else return parseInt(acc)
+    else return acc
   }, 0)
 }
 
