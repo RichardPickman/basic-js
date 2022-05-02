@@ -20,10 +20,9 @@ const { NotImplementedError } = require('../extensions/index.js');
  * 
  */
 class VigenereCipheringMachine {
-  constructor(arg = true) {
+  constructor(type = true) {
     this.alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    this.reverse = 'ZYXWVUTSRQPONMLKJIHGFEDCBA'
-    this.getAlphabet = arg ? this.alphabet : this.reverse;
+    this.type = type
   }
   
   encrypt(message, key, value) {
@@ -36,17 +35,17 @@ class VigenereCipheringMachine {
     for (let i = 0, j = 0; i < messageArr.length; i++) {
       if (typeof messageArr[i] === 'string') {
         encryptedArr.push(messageArr[i])
-      } else if (this.getAlphabet.includes(this.getAlphabet[messageArr[i]])) {
+      } else if (this.alphabet.includes(this.alphabet[messageArr[i]])) {
         const enc = (messageArr[i] + keysArr[j]) % 26;
         const dec = (messageArr[i] - keysArr[j]) < 0 ? ((messageArr[i] - keysArr[j]) + 26) % 26 : (messageArr[i] - keysArr[j]) % 26;
   
-        encryptedArr.push(value === 'decrypt' ? this.getAlphabet[dec] : this.getAlphabet[enc])
+        encryptedArr.push(value === 'decrypt' ? this.alphabet[dec] : this.alphabet[enc])
 
         j++
       }
     }
     
-    return encryptedArr.join('');
+    return this.type ? encryptedArr.join('') : encryptedArr.reverse().join('');
   }
 
   decrypt(message, key) {
@@ -58,10 +57,10 @@ class VigenereCipheringMachine {
     const messageArr = [];
 
     arrayOfWord.forEach(letter => {
-      if (!this.getAlphabet.includes(letter)) {
+      if (!this.alphabet.includes(letter)) {
         messageArr.push(letter)
       } else {
-        const item = this.getAlphabet.indexOf(letter)
+        const item = this.alphabet.indexOf(letter)
         messageArr.push(item);
       }
     })
